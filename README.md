@@ -1,10 +1,3 @@
----
-title: "Model Evaluation and Visualization App"
-author: "Ouarda Boumansour & Ala Eddine Choulr-Allah"
-date: "`r Sys.Date()`"
-output: github_document
----
-
 # Model Evaluation and Visualization App
 
 This repository contains a machine learning project for training, evaluating, and visualizing classification models. The project includes scripts for data generation, model training, evaluation, and a Streamlit-based web app for interactive visualization of results. Additionally, the project is containerized using Docker for consistent and portable deployment.
@@ -111,35 +104,6 @@ The app is containerized using Docker for easy deployment and reproducibility.
 
    Update parameters in `classification.py` or `app.py` to customize data generation, training, and evaluation.
 
-## Docker Setup
-
-
-
-
-### Using Docker Compose
-
-1. Build and Run the app with `docker-compose`:
-
-   ```bash
-   docker-compose build
-   docker-compose up 
-   ```
-
-2. Access the app at `http://localhost:8501`.
-
-### Push to Docker Hub
-
-1. Tag the image:
-
-   ```bash
-   docker tag model-evaluation-app <your_dockerhub_username>/model-evaluation-app
-   ```
-
-2. Push the image:
-
-   ```bash
-   docker push <your_dockerhub_username>/model-evaluation-app
-   ```
 
 ## Technologies Used
 
