@@ -9,9 +9,7 @@ This repository contains a machine learning project for training, evaluating, an
 - [Project Structure](#project-structure)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Docker Setup](#docker-setup)
 - [Technologies Used](#technologies-used)
-- [License](#license)
 - [Contributing](#contributing)
 - [Contact](#contact)
 
