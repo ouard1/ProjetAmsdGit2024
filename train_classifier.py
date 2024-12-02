@@ -8,7 +8,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
 import joblib
-
+from sklearn.metrics import classification_report, accuracy_score
 
 def generate_data():
     """Generate synthetic classification dataset."""
@@ -43,38 +43,41 @@ def split_data(X, y):
     
     return X_train, X_test, X_val, y_train, y_test, y_val
 
-def train_model(X_train, y_train, model_type='svm'):
-    """Train classification model based on the selected type and perform GridSearchCV."""
+def train_model(X_train, y_train, X_test, y_test, model_type='svm'):
+    """Train classification model and evaluate it on the test set."""
     if model_type == 'svm':
         model = SVC(probability=True, random_state=42)
-        # Lite Grid Search for SVM
         param_grid = {'C': [1, 10], 'kernel': ['linear']}
-         # Extensive Grid Search (commented out)
-        # param_grid = {'C': [0.01, 0.1, 1, 10, 100], 'kernel': ['linear', 'rbf', 'poly'], 'gamma': ['scale', 'auto']}
-        
     elif model_type == 'random_forest':
         model = RandomForestClassifier(random_state=42)
-        # Lite Grid Search for Random Forest
         param_grid = {'n_estimators': [50, 100], 'max_depth': [5, None]}
-         # Extensive Grid Search (commented out)
-        # param_grid = {'n_estimators': [50, 100, 200], 'max_depth': [5, 10, 15, None], 'min_samples_split': [2, 5, 10], 'min_samples_leaf': [1, 2, 4]}
-        
-        
     elif model_type == 'logistic_regression':
         model = LogisticRegression(random_state=42, max_iter=200)
-        # Lite Grid Search for Logistic Regression
-         # Extensive Grid Search (commented out)
-        #param_grid = {'C': [1, 10,100,100], 'solver': ['liblinear']}"
         param_grid = {'C': [1, 10], 'solver': ['liblinear']}
-    
     else:
-        raise ValueError("Invalid model type specified. Choose from 'svm', 'random_forest', or 'logistic_regression'.")
+        raise ValueError("Invalid model type specified.")
     
     # Perform Grid Search with cross-validation
     grid_search = GridSearchCV(model, param_grid, cv=5, n_jobs=-1, verbose=2)
     grid_search.fit(X_train, y_train)
     print(f"Best parameters for {model_type}: {grid_search.best_params_}")
+    
+    # Evaluate on the test set
+    test_score = grid_search.score(X_test, y_test)
+    print(f"Test accuracy for {model_type}: {test_score}")
+    
     return grid_search.best_estimator_
+
+
+
+def evaluate_model(model, X_test, y_test):
+    """Evaluate the model on the test set and print the performance metrics."""
+    predictions = model.predict(X_test)
+    print("Classification Report:")
+    print(classification_report(y_test, predictions))
+    accuracy = accuracy_score(y_test, predictions)
+    print(f"Accuracy: {accuracy}")
+
 
 def save_model(model, model_name='classification_model'):
     """Save the trained model to a file."""
@@ -87,10 +90,20 @@ if __name__ == "__main__":
     # Step 2: Split the data into training, testing, and validation sets
     X_train, X_test, X_val, y_train, y_test, y_val = split_data(X, y)
     
-    # Step 3: Train the models using Grid Search (Lite version)
+    # Step 3: Train the models using Grid Search
     models = ['svm', 'random_forest', 'logistic_regression']
     for model_type in models:
-        model = train_model(X_train, y_train, model_type)
+        model = train_model(X_train, y_train, X_test, y_test, model_type)
         save_model(model, model_type)
-
-    print("Models trained and saved successfully.")
+        
+        # Step 4: Evaluate the model on the test set
+        print(f"Evaluating {model_type} on the test set...")
+        predictions = model.predict(X_test)
+        report = classification_report(y_test, predictions, output_dict=False)
+        accuracy = accuracy_score(y_test, predictions)
+        print(report)
+        print(f"Accuracy: {accuracy}")
+        
+        
+    
+    print("Models trained, evaluated, and saved successfully.")
