@@ -112,6 +112,17 @@ The app is containerized using Docker for easy deployment and reproducibility.
   - Interactive Web Apps: `Streamlit`
 - **Containerization**: Docker, Docker Compose
 
+## Docker Setup
+1. **Pulling docker image**:
+```bash
+   docker pull ouarda78/classification-ap
+   ```
+2. **Running docker image**:
+
+```bash
+   docker run -p 8501:8501 ouarda78/classification-ap
+   ```
+   
 
 
 ## Contributing
