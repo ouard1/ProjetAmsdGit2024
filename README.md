@@ -1,4 +1,3 @@
-
 ---
 title: "Model Evaluation and Visualization App"
 author: "Ouarda Boumansour & Ala Eddine Choulr-Allah"
@@ -72,7 +71,6 @@ The app is containerized using Docker for easy deployment and reproducibility.
 
 - Python 3.9+
 - Docker (for containerization)
-- Optional: `virtualenv` for Python environment isolation
 
 ### Local Setup
 
@@ -80,7 +78,7 @@ The app is containerized using Docker for easy deployment and reproducibility.
 
    ```bash
    git clone https://github.com/ouard1/ProjetAmsdGit2024.git
-   cd model-evaluation-app
+   cd ProjetAmsdGit2024
    ```
 
 
@@ -89,16 +87,6 @@ The app is containerized using Docker for easy deployment and reproducibility.
 
    ```bash
    pip install -r requirements.txt
-   ```
-3. Generate the dataset and train the models by running classification.py:
-
-    ```bash
-    python classification.py
-    ```
-4. Run the app locally:
-
-   ```bash
-   streamlit run app.py
    ```
 
 ## Usage
@@ -125,26 +113,16 @@ The app is containerized using Docker for easy deployment and reproducibility.
 
 ## Docker Setup
 
-### Build and Run the Docker Container
 
-1. Build the Docker image:
 
-   ```bash
-   docker build -t model-evaluation-app .
-   ```
-
-2. Run the container:
-
-   ```bash
-   docker run -p 8501:8501 model-evaluation-app
-   ```
 
 ### Using Docker Compose
 
-1. Run the app with `docker-compose`:
+1. Build and Run the app with `docker-compose`:
 
    ```bash
-   docker-compose up --build
+   docker-compose build
+   docker-compose up 
    ```
 
 2. Access the app at `http://localhost:8501`.
@@ -183,7 +161,7 @@ Contributions are welcome! Please fork the repository and submit a pull request 
 For questions or support, please contact:
 
 - Name: Ouarda Boumansour & Ala Eddine Choukr-Allah
-- Email: Alaeddinechoukr@gmail.com
+- Email: Alaeddinechoukr@gmail.com boumansour.ouarda@gmail.com
 
 
 ---
